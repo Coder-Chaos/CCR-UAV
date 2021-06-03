@@ -78,6 +78,7 @@ void HydrusLQIController::sendFourAxisCommand()
   flight_cmd_pub_.publish(flight_command_data);
 }
 
+//位置&Yaw控制
 void HydrusLQIController::controlCore()
 {
   PoseLinearController::controlCore();

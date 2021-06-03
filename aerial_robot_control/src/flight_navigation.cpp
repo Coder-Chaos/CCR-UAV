@@ -581,7 +581,7 @@ void BaseNavigator::update()
           if(xy_control_mode_ == VEL_CONTROL_MODE ||
              xy_control_mode_ == POS_CONTROL_MODE)
             {
-              ROS_ERROR("No estimation for X, Y state, change to attitude control mode");
+              ROS_INFO("No estimation for X, Y state, change to attitude control mode");
               prev_xy_control_mode_ = xy_control_mode_;
               xy_control_mode_ = ACC_CONTROL_MODE;
             }

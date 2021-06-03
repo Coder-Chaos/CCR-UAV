@@ -19,9 +19,11 @@ HydrusRobotModel::HydrusRobotModel(bool init_with_rosparam, bool verbose, double
 
 }
 
+//Roll&Pitch油门分配
 void HydrusRobotModel::calcFeasibleControlRollPitchDists()
 {
   /* only consider Moment for roll and pitch */
+  
   const int rotor_num = getRotorNum();
   const double thrust_max = getThrustUpperLimit();
 
@@ -48,6 +50,7 @@ void HydrusRobotModel::calcFeasibleControlRollPitchDists()
 
 void HydrusRobotModel::calcFeasibleControlRollPitchDistsJacobian()
 {
+  //Roll&Pitch油门分配Jacobian
   const int rotor_num = getRotorNum();
   const int joint_num = getJointNum();
   const int ndof = 6 + joint_num;
@@ -96,6 +99,7 @@ void HydrusRobotModel::calcFeasibleControlRollPitchDistsJacobian()
     } //i
 }
 
+//计算Q矩阵
 void HydrusRobotModel::calcWrenchMatrixOnRoot()
 {
   aerial_robot_model::RobotModel::calcWrenchMatrixOnRoot();
@@ -103,6 +107,7 @@ void HydrusRobotModel::calcWrenchMatrixOnRoot()
   setThrustWrenchMatrix(wrench_mat.middleRows(2, wrench_dof_));
 }
 
+//计算静态油门
 void HydrusRobotModel::calcStaticThrust()
 {
   calcWrenchMatrixOnRoot(); // update Q matrix
@@ -166,6 +171,7 @@ bool HydrusRobotModel::rollPitchPositionMarginCheck()
   return true;
 }
 
+//稳定性检查：Roll/Pitch,Position,Q矩阵
 bool HydrusRobotModel::stabilityCheck(bool verbose)
 {
   if(!aerial_robot_model::RobotModel::stabilityCheck(verbose)) return false;
